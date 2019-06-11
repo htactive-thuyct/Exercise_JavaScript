@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="">
+  <head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Title Page</title>
+
+    <!-- Bootstrap CSS -->
+    <link
+      href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"
+      rel="stylesheet"
+    />
+
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+      <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.3/html5shiv.js"></script>
+      <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+  </head>
+  <body>
+    <div class="row">
+      <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
+        <form
+          action=""
+          id="myForm"
+          method="POST"
+          role="form"
+          style=" margin-left: 100px; margin-top: 50px"
+        >
+          <legend>Sign in</legend>
+
+          <div class="form-group">
+            <label for="">Your Email</label>
+            <input
+              type="text"
+              class="form-control"
+              id="email"
+              placeholder="Input field"
+            />
+          </div>
+          <div class="form-group">
+            <label for="">Username</label>
+            <input
+              type="text"
+              class="form-control"
+              id="username"
+              placeholder="Input field"
+            />
+          </div>
+          <div class="form-group">
+            <label for="">Password</label>
+            <input
+              type="text"
+              class="form-control"
+              id="password"
+              placeholder="Input field"
+            />
+          </div>
+
+          <button type="button" class="btn btn-primary" onclick="signIn()">
+            Submit
+          </button>
+        </form>
+      </div>
+
+      <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
+        <div id="display" style="margin: 150px">
+          <p id="Show_email"></p>
+          <p id="Show_username"></p>
+          <p id="Show_password"></p>
+        </div>
+      </div>
+    </div>
+    <script>
+      var person = { email: "", username: "", password: "" };
+
+      function signIn() {
+        person.email = document.getElementById("email").value;
+        person.username = document.getElementById("username").value;
+        person.password = document.getElementById("password").value;
+
+        document.getElementById("Show_email").innerHTML = person.email;
+        document.getElementById("Show_username").innerHTML = person.username;
+        document.getElementById("Show_password").innerHTML = person.password;
+
+        // document.getElementById("display").innerHTML =
+        //   person.slice(0, person.length) + "<br>";
+      }
+    </script>
+
+    <!-- jQuery -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+    <!-- Bootstrap JavaScript -->
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+  </body>
+</html>

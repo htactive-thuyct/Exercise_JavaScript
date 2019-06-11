@@ -1,0 +1,292 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>Document</title>
+    <link
+      rel="stylesheet"
+      href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+      integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T"
+      crossorigin="anonymous"
+    />
+  </head>
+  <style></style>
+  <body>
+    <div class="container" style="margin: 50px">
+      <div class="row">
+        <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4">
+          <table
+            style="margin-right: 100px"
+            class="table table-hover"
+            id="myTable"
+          ></table>
+        </div>
+        <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4">
+          <table class="table table-hover" id="myResultTable"></table>
+        </div>
+        <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4">
+          <br />
+          <div class="detail">
+            ID:
+            <div id="id_detail"></div>
+            Name:
+            <div id="name_detail"></div>
+            Age:
+            <div id="age_detail"></div>
+            Class:
+            <div id="class_detail"></div>
+          </div>
+          <div class="row" style="margin: 20px">
+            <div>
+              <input type="text" name="" id="inputAge" />
+              <button id="searchAge" onclick="searchAge()">Search Age</button>
+            </div>
+            <br />
+            <br />
+            <div>
+              <input type="text" name="" id="inputName" />
+              <button id="searchName" onclick="searchName()">
+                Search Name
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <script>
+      const sinhvien = [
+        {
+          id: 1,
+          name: "Thuy",
+          age: 20,
+          class: "PNV20A"
+        },
+        {
+          id: 2,
+          name: "Thuong",
+          age: 21,
+          class: "PNV20B"
+        },
+        {
+          id: 3,
+          name: "Nhung",
+          age: 20,
+          class: "PNV20B"
+        },
+        {
+          id: 4,
+          name: "Trang",
+          age: 10,
+          class: "PNV20A"
+        },
+        {
+          id: 5,
+          name: "Nhung",
+          age: 20,
+          class: "PNV20B"
+        },
+        {
+          id: 6,
+          name: "Huong",
+          age: 17,
+          class: "PNV20B"
+        },
+        {
+          id: 7,
+          name: "Mai",
+          age: 12,
+          class: "PNV20B"
+        },
+        {
+          id: 8,
+          name: "Ly",
+          age: 20,
+          class: "PNV20B"
+        },
+        {
+          id: 9,
+          name: "Hong",
+          age: 20,
+          class: "PNV20B"
+        }
+      ];
+      // EXTRACT VALUE FOR HTML HEADER.
+      // ('Book ID', 'Book Name', 'Category' and 'Price')
+      var col = [];
+      for (var i = 0; i < sinhvien.length; i++) {
+        for (var key in sinhvien[i]) {
+          if (col.indexOf(key) === -1) {
+            col.push(key);
+          }
+        }
+      }
+
+      // CREATE DYNAMIC TABLE.
+      var table = document.createElement("table");
+
+      // CREATE HTML TABLE HEADER ROW USING THE EXTRACTED HEADERS ABOVE.
+
+      var tr = table.insertRow(-1); // TABLE ROW.
+
+      for (var i = 0; i < col.length; i++) {
+        var th = document.createElement("th"); // TABLE HEADER.
+        th.innerHTML = col[i];
+        tr.appendChild(th);
+      }
+      var th = document.createElement("th"); // TABLE HEADER.
+      th.innerHTML = "Examine";
+      tr.appendChild(th);
+
+      // ADD JSON DATA TO THE TABLE AS ROWS.
+      for (let i = 0; i < sinhvien.length; i++) {
+        tr = table.insertRow(-1);
+        for (let j = 0; j < col.length; j++) {
+          var tabCell = tr.insertCell(-1);
+          tabCell.innerHTML = sinhvien[i][col[j]];
+        }
+        var td = document.createElement("td");
+        let button = document.createElement("button");
+        button.innerHTML = "chitiet";
+        button.addEventListener("click", () => {
+          document.getElementById("id_detail").innerHTML = sinhvien[i].id;
+          document.getElementById("name_detail").innerHTML = sinhvien[i].name;
+          document.getElementById("age_detail").innerHTML = sinhvien[i].age;
+          document.getElementById("class_detail").innerHTML = sinhvien[i].class;
+        });
+        tr.appendChild(button);
+      }
+
+      // FINALLY ADD THE NEWLY CREATED TABLE WITH JSON DATA TO A CONTAINER.
+      var divContainer = document.getElementById("myTable");
+      divContainer.innerHTML = "";
+      divContainer.appendChild(table);
+
+      //FUNCTION SEARCH BY AGE
+
+      function searchAge() {
+        var inputAge = document.getElementById("inputAge").value;
+        var col = [];
+        for (var i = 0; i < sinhvien.length; i++) {
+          if (sinhvien[i].age == inputAge) {
+            for (var key in sinhvien[i]) {
+              if (col.indexOf(key) === -1) {
+                col.push(key);
+              }
+            }
+          }
+        }
+
+        var table = document.createElement("table");
+
+        var tr = table.insertRow(-1); // TABLE ROW.
+
+        for (var i = 0; i < col.length; i++) {
+          var th = document.createElement("th"); // TABLE HEADER.
+          th.innerHTML = col[i];
+          tr.appendChild(th);
+        }
+
+        for (var i = 0; i < sinhvien.length; i++) {
+          if (sinhvien[i].age == inputAge) {
+            tr = table.insertRow(-1);
+
+            for (var j = 0; j < col.length; j++) {
+              var tabCell = tr.insertCell(-1);
+              tabCell.innerHTML = sinhvien[i][col[j]];
+            }
+          }
+        }
+        var divContainer = document.getElementById("myResultTable");
+        divContainer.innerHTML = "";
+        divContainer.appendChild(table);
+      }
+
+      //FUNCTION SEARCH BY NAME
+
+      function searchName() {
+        var col = [];
+        for (var i = 0; i < sinhvien.length; i++) {
+          for (var key in sinhvien[i]) {
+            if (col.indexOf(key) === -1) {
+              col.push(key);
+            }
+          }
+        }
+
+        var table = document.createElement("table");
+
+        var tr = table.insertRow(-1); // TABLE ROW.
+
+        for (var i = 0; i < col.length; i++) {
+          var th = document.createElement("th"); // TABLE HEADER.
+          th.innerHTML = col[i];
+          tr.appendChild(th);
+        }
+        var input = document.getElementById("inputName").value;
+
+        for (var i = 0; i < sinhvien.length; i++) {
+          if (input === sinhvien[i]["name"]) {
+            tr = table.insertRow(-1);
+
+            for (var j = 0; j < col.length; j++) {
+              var tabCell = tr.insertCell(-1);
+              tabCell.innerHTML = sinhvien[i][col[j]];
+            }
+          }
+        }
+        var divContainer = document.getElementById("myResultTable");
+        divContainer.innerHTML = "";
+        divContainer.appendChild(table);
+      }
+
+      // GET DETAIL SINH VIEN
+
+      function detail() {
+        var id = document.getElementById("myResultTable").innerHTML;
+        document.getElementById("id").innerHTML = id;
+      }
+    </script>
+  </body>
+
+  <!--     
+    <script>
+      const sinhvien = [
+        {
+          id: 1,
+          name: "Thuy",
+          age: 20,
+          class: "PNV20A"
+        },
+        {
+          id: 2,
+          name: "Thuong",
+          age: 21,
+          class: "PNV20B"
+        },
+        {
+          id: 3,
+          name: "Nhung",
+          age: 20,
+          class: "PNV20B"
+        },
+        {
+          id: 4,
+          name: "Trang",
+          age: 10,
+          class: "PNV20A"
+        }
+      ];
+
+      let myList = document.getElementById("myTable");
+
+      for (let item of sinhvien) {
+        let node = document.createElement("li");
+        let textNode = document.createTextNode(item.name);
+        node.appendChild(textNode);
+        myList.appendChild(node);
+      }
+    </script> -->
+</html>
